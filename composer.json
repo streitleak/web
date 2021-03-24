@@ -15,4 +15,21 @@
             "Streitleak\\RadiusWeb\\": "src/"
         }
     }
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"require": {
+		"php": "^7.3",
+	},
+	"require-dev": {
+		"josiasmontag/laravel-redis-mock": "^1.0",
+		"orchestra/testbench": "^4.0",
+		"orchestra/database": "^4.0"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Streitleak\\RadiusWeb\\RadiusCDRServiceProvider"
+      ]
+    }
+  }
 }
