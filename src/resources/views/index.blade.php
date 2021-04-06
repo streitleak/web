@@ -1,4 +1,4 @@
-@extends('radiuscdr::layouts.app')
+@extends('radiusweb::layouts.app')
 
 @section('header')
     <h1>FreeCDR WebUI</h1>
