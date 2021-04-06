@@ -12,7 +12,7 @@
     "require": {},
 	"autoload": {
 		"classmap": [
-			"src/database/migrations"
+			"database/migrations"
 		],
         "psr-4": {
             "Streitleak\\RadiusWeb\\": "src/"
