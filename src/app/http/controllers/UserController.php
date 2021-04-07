@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class RadiusCDRController extends Controller
+class UserController extends Controller
 {
     //
     public function login()
