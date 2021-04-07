@@ -1,4 +1,5 @@
 @extends('radiusweb::layouts.app')
+
 @section('leftcolumn')
     Side Bar
 @endsection

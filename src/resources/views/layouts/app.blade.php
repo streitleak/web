@@ -12,13 +12,13 @@
     <script src="{{ asset('/js/app.js') }}"></script>
     <body>
         <div id="warpper">
-            <div id="header">@yield('header')</div>
+            <div id="header"><h1>FreeCDR WebUI</h1></div>
             <div id="navigation">@yield('navigation')</div>
             <div id="leftcolumn">@yield('leftcolumn')</div>
             <div id="content">
                 @yield('content')
             </div>
-            <div id="footer">@yield('footer')</div>
+            <div id="footer"><h1>Copyrights by StreitLeak 2021</h1></div>
         </div>
     </body>    
 </html>
