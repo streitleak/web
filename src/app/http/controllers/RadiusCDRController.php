@@ -15,7 +15,13 @@ class RadiusCDRController extends Controller
 
     }
 
-    public function cdr(Request $request)
+    public function showcdr()
+    {
+        $cdrs = \DB::table('freecdr')->orderByDesc('radacctid')->paginate(15)->onEachSide(2);   
+        return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => null, 'stoptime' => null, 'calling' => null, 'called' => null, 'duration' => null, 'page' => null]);
+    }
+
+    public function customcdr(Request $request)
     {
         $query = "";
         if( $request->filled('starttime') ) 

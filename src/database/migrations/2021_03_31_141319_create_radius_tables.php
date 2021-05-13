@@ -13,6 +13,7 @@ class CreateRadiusTables extends Migration
      */
     public function up()
     {
+      if (!Schema::hasTable('freecdr')) {
         Schema::create('freecdr', function (Blueprint $table) {
             $table->bigInteger('radacctid')->nullable(false)->autoIncrement();
             $table->string('acctsessionid',64)->nullable(false)->default('');
@@ -145,6 +146,8 @@ class CreateRadiusTables extends Migration
             $table->unique('acctuniqueid');
             $table->index('acctsessionid');
         });
+      }
+      if (!Schema::hasTable('radacct')) {
         Schema::create('radacct', function (Blueprint $table) {
             $table->bigInteger('radacctid')->nullable(false)->autoIncrement();
             $table->string('acctsessionid',64)->nullable(false)->default('0');
@@ -188,11 +191,12 @@ class CreateRadiusTables extends Migration
             $table->index('acctstoptime');
             $table->index('nasipaddress');
         });
-          
+      }
           #
           # Table structure for table 'radcheck'
           #
-        Schema::create('radcheck', function (Blueprint $table) {        
+        if (!Schema::hasTable('radcheck')) {
+          Schema::create('radcheck', function (Blueprint $table) {        
             $table->unsignedInteger('id')->nullable(false)->autoIncrement();
             $table->string('username',64)->nullable(false)->default('0');
             $table->string('attribute',64) ->nullable(false)->default('0');
@@ -200,11 +204,13 @@ class CreateRadiusTables extends Migration
             $table->string('value',253)->nullable(false)->default('0');
             $table->index([DB::raw('username(32)')]);
         });
+        }
           
           #
           # Table structure for table 'radgroupcheck'
           #
-        Schema::create('radgroupcheck', function (Blueprint $table) {        
+        if (!Schema::hasTable('radgroupcheck')) {
+          Schema::create('radgroupcheck', function (Blueprint $table) {        
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('groupname',64)->nullable(false)->default('0');
             $table->string('attribute',64) ->nullable(false)->default('0');
@@ -212,11 +218,13 @@ class CreateRadiusTables extends Migration
             $table->string('value',253) ->nullable(false)->default('0');
             $table->index([DB::raw('groupname(32)')]);
         });
+      }
           
           #
           # Table structure for table 'radgroupreply'
           #
-        Schema::create('radgroupreply', function (Blueprint $table) {          
+        if (!Schema::hasTable('radgroupreply')) {
+            Schema::create('radgroupreply', function (Blueprint $table) {          
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('groupname',64)->nullable(false)->default('0');
             $table->string('attribute',64)->nullable(false)->default('0');
@@ -224,11 +232,13 @@ class CreateRadiusTables extends Migration
             $table->string('value',253) ->nullable(false)->default('0');
             $table->index([DB::raw('groupname(32)')]);
         });
+      }
           
           #
           # Table structure for table 'radreply'
           #
-        Schema::create('radreply', function (Blueprint $table) {          
+        if (!Schema::hasTable('radreply')) {
+          Schema::create('radreply', function (Blueprint $table) {          
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('username',64)->nullable(false)->default('0');
             $table->string('attribute',64)->nullable(false)->default('0');
@@ -236,18 +246,21 @@ class CreateRadiusTables extends Migration
             $table->string('value',253)->nullable(false)->default('0');
             $table->index([DB::raw('username(32)')]);
         });
+      }
           
           
           #
           # Table structure for table 'radusergroup'
           #
-        Schema::create('radusergroup', function (Blueprint $table) {          
+        if (!Schema::hasTable('radusergroup')) {
+            Schema::create('radusergroup', function (Blueprint $table) {          
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('username',64)->nullable(false)->default('0');
             $table->string('groupname',64)->nullable(false)->default('0');
             $table->integer('priority')->nullable(false)->default('1');
             $table->index([DB::raw('username(32)')]);
         });
+      }
           
           #
           # Table structure for table 'radpostauth'
@@ -258,7 +271,8 @@ class CreateRadiusTables extends Migration
           #
           #   authdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
           #
-        Schema::create('radpostauth', function (Blueprint $table) {        
+        if (!Schema::hasTable('radpostauth')) {
+            Schema::create('radpostauth', function (Blueprint $table) {        
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('username',64)->nullable(false)->default('0');
             $table->string('pass',64)->nullable(false)->default('0');
@@ -266,11 +280,13 @@ class CreateRadiusTables extends Migration
             $table->timestamp('authdate',6)->nullable(false)->useCurrent()->useCurrentOnUpdate();
             $table->index([DB::raw('username(32)')]);
         });
+      }
           
           #
           # Table structure for table 'nas'
           #
-        Schema::create('nas', function (Blueprint $table) {        
+        if (!Schema::hasTable('nas')) {
+            Schema::create('nas', function (Blueprint $table) {        
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('nasname',128)->nullable(false);
             $table->string(' shortname',32);
@@ -282,6 +298,7 @@ class CreateRadiusTables extends Migration
             $table->string('description',200)->default('RADIUS Client');
             $table->index('nasname');
         });
+      }
     }
 
     /**

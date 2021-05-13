@@ -49,7 +49,8 @@ class RadiusCDRServiceProvider extends ServiceProvider
  */           
         ],  'public');
         $this->loadRoutesFrom(__DIR__.'/route/route.php');
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');        
+        $this->publishes([__DIR__.'/database/seeders/UserTableSeeder.php' => database_path('seeders/UserTableSeeder.php'),],'UserTableSeeder');
         $this->loadViewsFrom(__DIR__.'/resources/views','radiusweb');
     }
 }

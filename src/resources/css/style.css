@@ -189,3 +189,9 @@ display: none;
 #loginform table tr,td {
   text-align:center;
 }
+
+#header #status {
+   position:absolute;
+   top:0;
+   right:0;
+}
