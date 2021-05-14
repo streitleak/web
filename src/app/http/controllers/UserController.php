@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -35,14 +38,14 @@ class UserController extends Controller
         );
 
         // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
         // if the validator fails, redirect back to the form
         if ($validator->fails()) 
         {
             return Redirect::to('login')
                     ->withErrors($validator) // send back all errors to the login form
-                    ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+                    ->withInput($request->except('password')); // send back the input (not the password) so that we can repopulate the form
         }
         else 
         {
@@ -53,8 +56,8 @@ class UserController extends Controller
 
             // create our user data for the authentication
             $userdata = array(
-                'email'     => Input::get('email'),
-                'password'  => Input::get('password')
+                'email'     => $request->input('email'),
+                'password'  => $request->input('password')
             );
 
             // attempt to do the login
@@ -66,6 +69,9 @@ class UserController extends Controller
                 // for now we'll just echo success (even though echoing in a controller is bad)
                 //echo 'SUCCESS!';                
                 $request->session()->regenerate();
+
+                // validation successful, send to Profile
+                return Redirect::to('profile');
             }
             else 
             {        
@@ -74,16 +80,11 @@ class UserController extends Controller
 
             }
 
-        }
+        }        
 
     }
 
-    public function showlogout()
-    {
-        return View('radiusweb::auth.logout');
-    }
-
-    public function dologout()
+    public function dologout(Request $request)
     {
         Auth::logout(); // log the user out of our application
         $request->session()->flush();
@@ -98,9 +99,11 @@ class UserController extends Controller
         return Redirect::to('login'); 
     }
 
-    public function profile(Request $request)
+    public function showprofile(Request $request)
     {
-        
+        var_dump($request->user());
+
+        return View('radiusweb::auth.profile', ['name' => $request->user('name') , 'email' => $request->user('email')]);
     }
 }
 
